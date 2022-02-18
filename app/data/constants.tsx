@@ -1,0 +1,35 @@
+export const DEFAULT_TYPE_COUNT = {
+  Water: 0,
+  Fire: 0,
+  Bug: 0,
+  Normal: 0,
+  Electric: 0,
+  Ground: 0,
+  Poison: 0,
+  Fairy: 0,
+  Fighting: 0,
+  Psychic: 0,
+  Grass: 0,
+  Ghost: 0,
+  Dark: 0,
+  Ice: 0,
+  Rock: 0,
+};
+
+export const types = {
+    WATER: "Water",
+    FIRE: "Fire",
+    BUG: "Bug",
+    NORMAL: "Normal",
+    ELECTRIC: "Electric",
+    GROUND: "Ground",
+    POISON: "Poison",
+    FAIRY: "Fairy",
+    FIGHTING: "Fighting",
+    PSYCHIC: "Psychic",
+    GRASS: "Grass",
+    GHOST: "Ghost",
+    DARK: "Dark",
+    ICE: "Ice",
+    ROCK: "Rock"
+}
