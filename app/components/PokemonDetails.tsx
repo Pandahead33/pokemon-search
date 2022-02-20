@@ -1,3 +1,6 @@
+import { Image, Loader } from "@mantine/core";
+import { useState } from "react";
+
 const PokemonDetailListItem = (props) => {
   const { label, value } = props;
 
@@ -10,6 +13,8 @@ const PokemonDetailListItem = (props) => {
 };
 
 const PokemonDetails = ({ pokemon, pokedexNumber, setShowPokemonDetails }) => {
+  const [imageLoaded, setImageLoaded] = useState(false)
+
   if (!pokemon) return setShowPokemonDetails(false) ?? null;
 
   const {
@@ -24,18 +29,13 @@ const PokemonDetails = ({ pokemon, pokedexNumber, setShowPokemonDetails }) => {
   return (
     <>
       <div className="w-24 h-24">
-        <Loader
-          variant="bars"
-          color="yellow"
-          styles={() => ({
-            root: {
-              backgroundColor: "#00acee",
-            },
-          })}
-        />
         <Image
           className="w-full"
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokedexNumber}.png`}
+          onLoadStart={() => {
+            console.log("hello");
+            setImageLoaded(true)
+        }}
         />
       </div>
       <ul className="list-none p-0 w-full max-w-xs l sm:w-80">

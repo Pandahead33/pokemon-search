@@ -1,26 +1,13 @@
-import { Autocomplete, Button, Image, Loader } from "@mantine/core";
+import { Autocomplete, Button, RangeSlider, Slider } from "@mantine/core";
 import { forwardRef, useState } from "react";
 import allPokemon from "~/data/pokemon.json";
-import { DEFAULT_TYPE_COUNT, types } from "~/data/constants";
+import {
+  DEFAULT_GENERATION_COUNTS,
+  DEFAULT_TYPE_COUNT,
+  types,
+  generationLabels,
+} from "~/data/constants";
 import PokemonDetails from "~/components/PokemonDetails";
-
-const pokemonTypeReducer = (allTypes, pokemon) => {
-  return {
-    ...allTypes,
-    [pokemon.type_1]: allTypes[pokemon.type_1] + 1,
-  };
-};
-
-const filteredPokemon = allPokemon.filter(
-    (pokemon) =>
-      pokemon.generation > 2 &&
-      pokemon.generation < 5 &&
-      pokemon.weight_kg < 29.0 &&
-      pokemon.height_m < 1.0 &&
-      pokemon.type_2 === "" &&
-      pokemon.type_1 !== types.WATER
-  );
-
 
 const AutoCompleteItem = forwardRef<HTMLDivElement, ItemProps>(
   ({ value, ...others }: ItemProps, ref) => (
@@ -35,11 +22,6 @@ const GameTitle = () => <h1 className="mb-12">Who's That Pokemon?</h1>;
 const PokeGuessingGame = () => {
   const [selectedPokemon, setSelectedPokemon] = useState("");
   const [showPokemonDetails, setShowPokemonDetails] = useState(false);
-
-  const pokemonTypes = filteredPokemon.reduce(
-    pokemonTypeReducer,
-    DEFAULT_TYPE_COUNT
-  );
 
   return (
     <div className="grid place-items-center">
@@ -81,7 +63,7 @@ const PokeGuessingGame = () => {
         />
       )}
       <div className="flex flex-col w-64">
-        <div>
+        <div className="my-8">
           {Object.keys(pokemonTypes).map((type) => (
             <div className="flex justify-between odd:bg-slate-100 p-2">
               <span className="font-bold">{type}</span>
@@ -89,11 +71,25 @@ const PokeGuessingGame = () => {
             </div>
           ))}
         </div>
+        <div className="my-8">
+          {Object.keys(pokemonGenerations).map((generation) => (
+            <div className="flex justify-between odd:bg-slate-100 p-2">
+              <span className="font-bold">{generationLabels[generation]}</span>
+              <span>{pokemonGenerations[generation]}</span>
+            </div>
+          ))}
+        </div>
         <div className="mt-12">
-          Total: {filteredPokemon?.length}
+          <PokemonCharacteristicStats />
           <ul>
             {filteredPokemon.map((each) => (
-              <li>{each.name}</li>
+              <>
+                <li>{each.name}</li>
+                <ul>
+                  <li>Height(m): {each.height_m}</li>
+                  <li>Weight (kg): {each.weight_kg}</li>
+                </ul>
+              </>
             ))}
           </ul>
         </div>
