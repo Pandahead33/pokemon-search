@@ -1,12 +1,6 @@
-import { Autocomplete, Button, RangeSlider, Slider } from "@mantine/core";
+import { Autocomplete, Button } from "@mantine/core";
 import { forwardRef, useState } from "react";
 import allPokemon from "~/data/pokemon.json";
-import {
-  DEFAULT_GENERATION_COUNTS,
-  DEFAULT_TYPE_COUNT,
-  types,
-  generationLabels,
-} from "~/data/constants";
 import PokemonDetails from "~/components/PokemonDetails";
 
 const AutoCompleteItem = forwardRef<HTMLDivElement, ItemProps>(
@@ -62,38 +56,6 @@ const PokeGuessingGame = () => {
           setShowPokemonDetails={setShowPokemonDetails}
         />
       )}
-      <div className="flex flex-col w-64">
-        <div className="my-8">
-          {Object.keys(pokemonTypes).map((type) => (
-            <div className="flex justify-between odd:bg-slate-100 p-2">
-              <span className="font-bold">{type}</span>
-              <span>{pokemonTypes[type]}</span>
-            </div>
-          ))}
-        </div>
-        <div className="my-8">
-          {Object.keys(pokemonGenerations).map((generation) => (
-            <div className="flex justify-between odd:bg-slate-100 p-2">
-              <span className="font-bold">{generationLabels[generation]}</span>
-              <span>{pokemonGenerations[generation]}</span>
-            </div>
-          ))}
-        </div>
-        <div className="mt-12">
-          <PokemonCharacteristicStats />
-          <ul>
-            {filteredPokemon.map((each) => (
-              <>
-                <li>{each.name}</li>
-                <ul>
-                  <li>Height(m): {each.height_m}</li>
-                  <li>Weight (kg): {each.weight_kg}</li>
-                </ul>
-              </>
-            ))}
-          </ul>
-        </div>
-      </div>
     </div>
   );
 };

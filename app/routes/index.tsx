@@ -10,12 +10,12 @@ import {
 } from "@mantine/core";
 import { forwardRef, useState } from "react";
 import { Outlet } from "remix";
-import { generationLabels, types } from "~/data/constants";
+import { types } from "~/data/constants";
 import { typeIcons } from "~/data/icons";
 import allPokemon from "~/data/pokemon.json";
 import PokemonCharacteristicStats from "~/components/PokemonCharacteristicStats";
 
-function getNumberWithOrdinal(n) {
+const getNumberWithOrdinal = (n: number) => {
   var s = ["th", "st", "nd", "rd"],
     v = n % 100;
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
@@ -32,7 +32,7 @@ const SelectItem = forwardRef(({ label, ...others }, ref) => (
   </div>
 ));
 
-function ValueItem({ value, label, onRemove, classNames, ...others }) {
+const PokemonTypeValueItem = ({ value, label, onRemove, classNames, ...others }) => {
   return (
     <div {...others}>
       <Box
@@ -227,7 +227,7 @@ export default function Index() {
             label="Primary/Secondary Type"
             placeholder="Pick types (in order)..."
             itemComponent={SelectItem}
-            valueComponent={ValueItem}
+            valueComponent={PokemonTypeValueItem}
             searchable
             clearable
             nothingFound="Nothing. Try another type!"
@@ -256,7 +256,7 @@ export default function Index() {
             label="Types to Not Include"
             placeholder="Select multiple types..."
             itemComponent={SelectItem}
-            valueComponent={ValueItem}
+            valueComponent={PokemonTypeValueItem}
             searchable
             clearable
             nothingFound="Nothing. Try another type!"
